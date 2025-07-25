@@ -1,4 +1,3 @@
-package com;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
