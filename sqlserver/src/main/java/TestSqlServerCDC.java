@@ -20,7 +20,7 @@ public class TestSqlServerCDC {
                 .hostname("cdh01")    // SQL Server 主机地址
                 .port(1433)                  // SQL Server 端口（默认 1433）
                 .username("sa")              // 数据库登录用户名
-                .password("tjq0605*")       // 数据库登录密码
+                .password("Ryw963300！")       // 数据库登录密码
                 .database("test_cdc")     // 要监听的数据库名
               //  .schemaList("dbo")      // 架构名
                 .tableList("dbo.test")   // 要监听的表（格式：模式.表名）
@@ -31,7 +31,7 @@ public class TestSqlServerCDC {
                 .build();
 
 
-        DataStreamSource<String> dataStreamSource = env.addSource(sqlServerSource, "test_source");
+        DataStreamSource<String> dataStreamSource = env.addSource(sqlServerSource, "test_cdc");
         dataStreamSource.print().setParallelism(1);
         env.execute("TestSqlServerCDC");
     }
