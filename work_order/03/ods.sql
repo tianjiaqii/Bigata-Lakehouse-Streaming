@@ -1,72 +1,72 @@
 use test03_02;
 -- 1. 商品维度表（保持结构不变）
 CREATE TABLE ods_product_info (
-                                  product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
-                                  product_name VARCHAR(100) NOT NULL COMMENT '商品名称',
-                                  color VARCHAR(20) COMMENT '商品颜色',
-                                  category VARCHAR(50) COMMENT '商品类目',
-                                  brand VARCHAR(50) COMMENT '商品品牌',
-                                  price DECIMAL(10,2) COMMENT '商品单价',
-                                  shelf_time DATE COMMENT '上架时间',
-                                  PRIMARY KEY (product_id)
+    product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
+    product_name VARCHAR(100) NOT NULL COMMENT '商品名称',
+    color VARCHAR(20) COMMENT '商品颜色',
+    category VARCHAR(50) COMMENT '商品类目',
+    brand VARCHAR(50) COMMENT '商品品牌',
+    price DECIMAL(10,2) COMMENT '商品单价',
+    shelf_time DATE COMMENT '上架时间',
+    PRIMARY KEY (product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品基础信息维度表';
 
 -- 2. 商品流量事实表（结构不变）
 CREATE TABLE ods_product_traffic (
-                                     product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
-                                     terminal_type VARCHAR(20) NOT NULL COMMENT '终端类型(terminal/wireless)',
-                                     visitor_count INT COMMENT '访客数',
-                                     detail_visitor_count INT COMMENT '详情页访客数',
-                                     pv INT COMMENT '浏览量',
-                                     avg_stay_time DECIMAL(6,2) COMMENT '平均停留时长(秒)',
-                                     bounce_rate DECIMAL(5,4) COMMENT '跳出率',
-                                     add_cart_count INT COMMENT '加购人数',
-                                     ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
-                                     PRIMARY KEY (product_id, terminal_type, ds)
+    product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
+    terminal_type VARCHAR(20) NOT NULL COMMENT '终端类型(terminal/wireless)',
+    visitor_count INT COMMENT '访客数',
+    detail_visitor_count INT COMMENT '详情页访客数',
+    pv INT COMMENT '浏览量',
+    avg_stay_time DECIMAL(6,2) COMMENT '平均停留时长(秒)',
+    bounce_rate DECIMAL(5,4) COMMENT '跳出率',
+    add_cart_count INT COMMENT '加购人数',
+    ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
+    PRIMARY KEY (product_id, terminal_type, ds)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品流量事实表';
 
 -- 3. 商品颜色交易事实表（结构不变）
 CREATE TABLE ods_product_color_trade (
-                                         product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
-                                         color VARCHAR(20) NOT NULL COMMENT '商品颜色',
-                                         pay_amount DECIMAL(12,2) COMMENT '支付金额',
-                                         pay_quantity INT COMMENT '支付件数',
-                                         pay_buyer_count INT COMMENT '支付买家数',
-                                         ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
-                                         PRIMARY KEY (product_id, color, ds)
+    product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
+    color VARCHAR(20) NOT NULL COMMENT '商品颜色',
+    pay_amount DECIMAL(12,2) COMMENT '支付金额',
+    pay_quantity INT COMMENT '支付件数',
+    pay_buyer_count INT COMMENT '支付买家数',
+    ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
+    PRIMARY KEY (product_id, color, ds)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品颜色交易事实表';
 
 -- 4. 商品渠道流量表（结构不变）
 CREATE TABLE ods_product_channel (
-                                     product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
-                                     channel VARCHAR(50) NOT NULL COMMENT '流量渠道',
-                                     visitor_ratio DECIMAL(5,4) COMMENT '访客占比',
-                                     ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
-                                     PRIMARY KEY (product_id, channel, ds)
+    product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
+    channel VARCHAR(50) NOT NULL COMMENT '流量渠道',
+    visitor_ratio DECIMAL(5,4) COMMENT '访客占比',
+    ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
+    PRIMARY KEY (product_id, channel, ds)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品渠道流量表';
 
 -- 5. 商品内容引流表（结构不变）
 CREATE TABLE ods_product_content (
-                                     product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
-                                     content_type VARCHAR(20) NOT NULL COMMENT '内容类型(live/video/image)',
-                                     click_count INT COMMENT '点击次数',
-                                     collect_count INT COMMENT '引导收藏次数',
-                                     add_cart_from_content INT COMMENT '引导加购次数',
-                                     ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
-                                     PRIMARY KEY (product_id, content_type, ds)
+    product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
+    content_type VARCHAR(20) NOT NULL COMMENT '内容类型(live/video/image)',
+    click_count INT COMMENT '点击次数',
+    collect_count INT COMMENT '引导收藏次数',
+    add_cart_from_content INT COMMENT '引导加购次数',
+    ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
+    PRIMARY KEY (product_id, content_type, ds)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品内容引流表';
 
 -- 6. 商品评价表（结构不变）
 CREATE TABLE ods_product_comment (
-                                     product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
-                                     user_type VARCHAR(10) NOT NULL COMMENT '用户类型(all/old/new)',
-                                     score_level INT NOT NULL COMMENT '评分等级(1-5)',
-                                     comment_count INT COMMENT '评价数',
-                                     positive_comment INT COMMENT '正面评价数',
-                                     negative_comment INT COMMENT '负面评价数',
-                                     active_comment INT COMMENT '主动评价数',
-                                     ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
-                                     PRIMARY KEY (product_id, user_type, score_level, ds)
+    product_id VARCHAR(20) NOT NULL COMMENT '商品ID',
+    user_type VARCHAR(10) NOT NULL COMMENT '用户类型(all/old/new)',
+    score_level INT NOT NULL COMMENT '评分等级(1-5)',
+    comment_count INT COMMENT '评价数',
+    positive_comment INT COMMENT '正面评价数',
+    negative_comment INT COMMENT '负面评价数',
+    active_comment INT COMMENT '主动评价数',
+    ds VARCHAR(8) NOT NULL COMMENT '日期分区(yyyyMMdd)',
+    PRIMARY KEY (product_id, user_type, score_level, ds)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '商品评价表';
 
 -- 生成商品维度表数据（仅5个商品，名称符合实际场景）
@@ -146,16 +146,16 @@ CALL generate_dates();
 -- 生成商品流量事实表数据（仅关联5个商品）
 DROP TEMPORARY TABLE IF EXISTS tmp_traffic_data;
 CREATE TEMPORARY TABLE tmp_traffic_data (
-                                            product_id VARCHAR(20),
-                                            terminal_type VARCHAR(20),
-                                            visitor_count INT,
-                                            detail_visitor_count INT,
-                                            pv INT,
-                                            avg_stay_time DECIMAL(6,2),
-                                            bounce_rate DECIMAL(5,4),
-                                            add_cart_count INT,
-                                            ds VARCHAR(8),
-                                            UNIQUE KEY (product_id, terminal_type, ds)
+    product_id VARCHAR(20),
+    terminal_type VARCHAR(20),
+    visitor_count INT,
+    detail_visitor_count INT,
+    pv INT,
+    avg_stay_time DECIMAL(6,2),
+    bounce_rate DECIMAL(5,4),
+    add_cart_count INT,
+    ds VARCHAR(8),
+    UNIQUE KEY (product_id, terminal_type, ds)
 );
 
 DELIMITER //
@@ -211,13 +211,13 @@ DROP PROCEDURE IF EXISTS generate_traffic_data;
 -- 生成商品颜色交易事实表数据（仅关联5个商品）
 DROP TEMPORARY TABLE IF EXISTS tmp_color_trade;
 CREATE TEMPORARY TABLE tmp_color_trade (
-                                           product_id VARCHAR(20),
-                                           color VARCHAR(20),
-                                           pay_amount DECIMAL(12,2),
-                                           pay_quantity INT,
-                                           pay_buyer_count INT,
-                                           ds VARCHAR(8),
-                                           UNIQUE KEY (product_id, color, ds)
+    product_id VARCHAR(20),
+    color VARCHAR(20),
+    pay_amount DECIMAL(12,2),
+    pay_quantity INT,
+    pay_buyer_count INT,
+    ds VARCHAR(8),
+    UNIQUE KEY (product_id, color, ds)
 );
 
 DELIMITER //
@@ -251,11 +251,11 @@ DROP PROCEDURE IF EXISTS generate_color_trade_data;
 -- 生成商品渠道流量表数据（仅关联5个商品）
 DROP TEMPORARY TABLE IF EXISTS tmp_channel_data;
 CREATE TEMPORARY TABLE tmp_channel_data (
-                                            product_id VARCHAR(20),
-                                            channel VARCHAR(50),
-                                            ratio DECIMAL(10,4),
-                                            ds VARCHAR(8),
-                                            total_ratio DECIMAL(10,4)
+    product_id VARCHAR(20),
+    channel VARCHAR(50),
+    ratio DECIMAL(10,4),
+    ds VARCHAR(8),
+    total_ratio DECIMAL(10,4)
 );
 
 INSERT INTO tmp_channel_data (product_id, channel, ratio, ds)
@@ -297,13 +297,13 @@ DROP TEMPORARY TABLE IF EXISTS tmp_channel_totals;
 -- 生成商品内容引流表数据（仅关联5个商品）
 DROP TEMPORARY TABLE IF EXISTS tmp_content_data;
 CREATE TEMPORARY TABLE tmp_content_data (
-                                            product_id VARCHAR(20),
-                                            content_type VARCHAR(20),
-                                            click_count INT,
-                                            collect_count INT,
-                                            add_cart_from_content INT,
-                                            ds VARCHAR(8),
-                                            UNIQUE KEY (product_id, content_type, ds)
+    product_id VARCHAR(20),
+    content_type VARCHAR(20),
+    click_count INT,
+    collect_count INT,
+    add_cart_from_content INT,
+    ds VARCHAR(8),
+    UNIQUE KEY (product_id, content_type, ds)
 );
 
 DELIMITER //
